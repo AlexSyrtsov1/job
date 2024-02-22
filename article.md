@@ -28,6 +28,7 @@ LSTM можно представить в виде цепи, где каждое
 \
 отдельное звено можно расписать по следующим формулам: \
 $$ I_n = \sigma(w_{input}(h_{n-1} \cdot f_n)+b_{input}) $$
+t
 $$ F_n = \sigma(w_{forget}(h_{n-1} \cdot f_n)+b_{forget}) $$
 $$ O_n = \sigma(w_{output}(h_{n-1} \cdot f_n)+b_{output}) $$
 $$ \widetilde{C}_n = tanh(w_c(h_{n-1} \cdot f_n)) $$
