@@ -33,8 +33,8 @@ $$ F_n = \sigma(w_{forget}(h_{n-1} \cdot f_n)+b_{forget}) $$
 
 $$ O_n = \sigma(w_{output}(h_{n-1} \cdot f_n)+b_{output}) $$
 
-$$ \widetilde{C}_n = tanh(w_c(h_{n-1} \cdot f_n)) $$
+$$ \widetilde{C}_ n = tanh(w_c(h_{n-1} \cdot f_n)) $$
 
-$$ c_n = F_n \otimes c_{n-1} + I_n \otimes \otimes \widetilde{C}_n $$
+$$ c_n = F_n \otimes c_{n-1} + I_n \otimes \widetilde{C}_n $$
 
 $$ h_n = o_n \otimes tanh(c_n) $$
