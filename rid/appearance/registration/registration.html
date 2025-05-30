@@ -130,22 +130,211 @@
                     </li>
                     <li class="disappearing" style="box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12), 0 2px 4px -1px rgba(0, 0, 0, .2); background-color: #ffffff; padding: 2rem 3rem; margin: 1rem 0; border-radius: 25px; max-width: 100%; display: flex; align-items: center; flex-direction: row; gap: 1rem; justify-content: space-between;">
                         <div>
-                            <h2><a href="" class="doc-link">Проведите патентный поиск для выявления аналогичных технологий</a></h2>
+                            <h2><a href="/search" class="doc-link">Проведите патентный поиск для выявления аналогичных технологий</a></h2>
                         </div>
                         <img style="block-size: 3rem;" src="https://lib.obs.ru-moscow-1.hc.sbercloud.ru:443/PATENTS/doc-reg.svg">
                     </li>
-                    <li class="disappearing" style="box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12), 0 2px 4px -1px rgba(0, 0, 0, .2); background-color: #ffffff; padding: 2rem 3rem; margin: 1rem 0; border-radius: 25px; max-width: 100%; display: flex; align-items: center; flex-direction: row; gap: 1rem; justify-content: space-between;">
+                    <li id="hiding1" class="disappearing" style="box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12), 0 2px 4px -1px rgba(0, 0, 0, .2); background-color: #ffffff; padding: 2rem 3rem; margin: 1rem 0; border-radius: 25px; max-width: 100%; display: flex; align-items: center; flex-direction: row; gap: 1rem; justify-content: space-between;">
                         <div>
-                            <h2><a href="" class="doc-link">Международная подача заявки</a></h2>
+                            <h2 class="doc-link" onclick="hide()">Международная подача заявки</h2>
+                            <div id="hiding-point1" style="display: none;">
+                                <p>Международная подача заявки на патент осуществляется через систему PCT (Patent Cooperation Treaty - договор о патентной кооперации), которая позволяет подать одну заявку для защиты изобретения в нескольких странах-участницах (более 150 государств).
+                                Основные этапы подачи международной заявки PCT:</p>
+                                <ol>
+                                    <li>
+                                        <h3 style="color: #20015a;">Подготовка заявки</h3>
+                                        <p>
+                                            Заявка должна включать:
+                                            <ul>
+                                                <li>
+                                                    <p>
+                                                        Описание изобретения
+                                                    </p>
+                                                </li>
+                                                    
+                                                <li>
+                                                    <p>
+                                                        Формулу изобретения (патентные притязания)
+                                                    </p>
+                                                </li>
+                                                    
+                                                <li>
+                                                    <p>
+                                                        Чертежи (если необходимы)
+                                                    </p>
+                                                </li>
+                                                    
+                                                <li>
+                                                    <p>
+                                                        Реферат (краткое описание)
+                                                    </p>
+                                                </li>
+                                                    
+                                                <li>
+                                                    <p>
+                                                        Данные заявителя и изобретателя
+                                                    </p>
+                                                </li>
+                                                
+                                            </ul>
+                                        </p>
+                                        
+                                    </li>
+                                    <li>
+                                        <h3 style="color: #20015a;">Подача заявки</h3>
+                                        <p>
+                                            Заявка подается в международное ведомство (через национальное патентное ведомство, например, Роспатент в РФ) или напрямую в ВОИС (WIPO). Подача должна быть осуществлена в течение 12 месяцев с даты подачи первой национальной заявки (приоритетный период).
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <h3 style="color: #20015a;">Международный поиск и предварительная экспертиза</h3>
+                                        <ul>
+                                            <li>
+                                                <p>Международный поисковый орган (ISA) проводит проверку на патентоспособность и выдает отчет (International Search Report, ISR)</p>
+                                            </li>
+                                            <li>
+                                                <p>Можно запросить предварительную экспертизу (International Preliminary Examination, IPER) для дополнительной оценки</p>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <h3 style="color: #20015a;">Публикация заявки</h3>
+                                        <p>
+                                            Через 18 месяцев после приоритетной даты заявка публикуется в базе PATENTSCOPE
+                                        </p>
+                                        
+                                    </li>
+                                    <li>
+                                        <h3 style="color: #20015a;">Вход в национальные фазы</h3>
+                                        <p>
+                                            После не менее 30 месяцев нужно перевести заявку в национальные патентные ведомства выбранных стран для окончательной экспертизы и выдачи патента.
+                                            <h3 style="color: #20015a;">Преимущества PCT</h3>
+                                            <ul>
+                                                <li>
+                                                    <p>Удобство: одна заявка вместо множества национальных</p>
+                                                </li>
+                                                <li>
+                                                    <p>Отсрочка расходов: можно отложить национальные этапы на 30 месяцев</p>
+                                                </li>
+                                                <li>
+                                                    <p>Гибкость: после ISR можно оценить шансы на патентование</p>
+                                                </li>
+                                            </ul>
+
+                                            <h3 style="color: #20015a;">Альтернативы</h3>
+                                            <ul>
+                                                <li>
+                                                    <p>Прямая подача в каждую страну (без PCT, но дороже и сложнее)</p>
+                                                </li>
+                                                <li>
+                                                    <p>Европейский патент (EPO) или евразийский патент (ЕАПО) для региональной защиты</p>
+                                                </li>
+                                            </ul>
+                                        </p>
+                                    </li>
+                                </ol>
+                            </div>
+
                         </div>
                         <img style="block-size: 3rem;" src="https://lib.obs.ru-moscow-1.hc.sbercloud.ru:443/PATENTS/doc-ia.svg">
                     </li>
-                    <li class="disappearing" style="box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12), 0 2px 4px -1px rgba(0, 0, 0, .2); background-color: #ffffff; padding: 2rem 3rem; margin: 1rem 0; border-radius: 25px; max-width: 100%; display: flex; align-items: center; flex-direction: row; gap: 1rem; justify-content: space-between;">
+
+                    <script>
+                        const hidingPanel = document.getElementById('hiding-point1');
+                        const hidingContainer = document.getElementById('hiding1');
+
+                        function hide()
+                        {
+                            hidingPanel.style.display = hidingPanel.style.display == 'none'? 'block' : 'none';
+                            hidingContainer.style.height = hidingPanel.style.display == 'none'? '8rem' : 'unset';
+                            hidingContainer.style.animationName = hidingPanel.style.display == 'none'? 'dissapearing' : 'none';
+                        }
+                    </script>
+
+                    <li id="hiding2" class="disappearing" style="box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12), 0 2px 4px -1px rgba(0, 0, 0, .2); background-color: #ffffff; padding: 2rem 3rem; margin: 1rem 0; border-radius: 25px; max-width: 100%; display: flex; align-items: center; flex-direction: row; gap: 1rem; justify-content: space-between;">
                         <div>
-                            <h2><a href="" class="doc-link">Режим коммерческой тайны</a></h2>
+                            <h2 class="doc-link" onclick="hide2()">Режим коммерческой тайны</h2>
+                            <div id="hiding-point2" style="display: none;">
+                                <p>Режим коммерческой тайны (ноу-хау, секрет производства) — способ защиты конфиденциальной информации, которая имеет коммерческую ценность благодаря своей неизвестности третьим лицам. В отличие от патентов, ноу-хау не требует регистрации и действует бессрочно, пока сохраняется секретность.</p>
+
+                                <ol>
+                                    <li>
+                                        <h3 style="color: #20015a;">Что может быть ноу-хау?</h3>
+                                        <p>
+                                            Примеры охраняемой информации:
+                                            <ul>
+                                                <li><p>Технологические процессы, рецепты.</p></li>
+                                                <li><p>Методы ведения бизнеса, базы данных клиентов.</p></li>
+                                                <li><p>Алгоритмы ПО, исходный код (если не запатентован).</p></li>
+                                                <li><p>Маркетинговые стратегии, планы развития.</p></li>
+                                            </ul>
+                                        </p>    
+                                    </li>
+
+                                    <li>
+                                        <h3 style="color: #20015a;">Условия защиты ноу-хау</h3>
+                                        <p>
+                                            Чтобы информация считалась коммерческой тайной, необходимо:
+                                            <ul>
+                                                <li><p>Конфиденциальность — доступ только для ограниченного круга лиц</p></li>
+                                                <li><p>Коммерческая ценность — информация дает преимущество в бизнесе</p></li>
+                                                <li><p>Меры защиты — организация предпринимает разумные шаги для сохранения секретности</p></li>
+                                            </ul>
+                                        </p>
+                                    </li>
+
+                                    <li>
+                                        <h3 style="color: #20015a;">Как ввести режим коммерческой тайны?</h3>
+                                        <p>
+                                            Шаг 1. Определить перечень секретной информации:
+                                            <br>Издать приказ о коммерческой тайне с перечнем охраняемых сведений и порядком их доступа
+                                        </p>
+                                        
+                                        <p>
+                                            Шаг 2. Ограничить доступ
+                                            <ul>
+                                                <li><p>Ввести пропускной режим на предприятии</p></li>
+                                                <li><p>Использовать NDA (соглашение о неразглашении) с сотрудниками и контрагентами</p></li>
+                                                <li><p>Маркировать документы грифом «Коммерческая тайна»</p></li>
+                                            </ul>
+                                        </p>
+
+                                        <p>
+                                            Шаг 3. Техническая защита
+                                            <ul>
+                                                <li><p>Шифрование данных, пароли, DLP-системы.</p></li>
+                                                <li><p>Ограничение доступа к серверам и облачным хранилищам.</p></li>
+                                            </ul>
+                                        </p>
+                                        
+                                        <p>
+                                            Шаг 4. Юридическое закрепление
+                                            <ul>
+                                                <li><p>Включить пункт о неразглашении в трудовые договоры.</p></li>
+                                                <li><p>Прописать ответственность за разглашение (штрафы, увольнение, иск о возмещении ущерба).</p></li>
+                                            </ul>
+                                        </p>
+                                        
+                                    </li>
+                                </ol>
+
+                            </div>
                         </div>
                         <img style="block-size: 3rem;" src="https://lib.obs.ru-moscow-1.hc.sbercloud.ru:443/PATENTS/doc-sec.svg">
                     </li>
+
+                    <script>
+                        const hidingPanel2 = document.getElementById('hiding-point2');
+                        const hidingContainer2 = document.getElementById('hiding2');
+
+                        function hide2()
+                        {
+                            hidingPanel2.style.display = hidingPanel2.style.display == 'none'? 'block' : 'none';
+                            hidingContainer2.style.height = hidingPanel2.style.display == 'none'? '8rem' : 'unset';
+                            hidingContainer2.style.animationName = hidingPanel2.style.display == 'none'? 'dissapearing' : 'none';
+                        }
+                    </script>
+
                     <li class="disappearing" style="box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12), 0 2px 4px -1px rgba(0, 0, 0, .2); background-color: #ffffff; padding: 2rem 3rem; margin: 1rem 0; border-radius: 25px; max-width: 100%; display: flex; align-items: center; flex-direction: row; gap: 1rem; justify-content: space-between;">
                         <div>
                             <h2><a href="https://new.fips.ru/to-applicants/inventions/normativnye-dokumenty.php" class="doc-link">Подробнее</a></h2>
@@ -183,12 +372,12 @@
 
                 <ul style="list-style-type: none; padding: 0; margin: 0;">
                     <li class="point">
-                        <a class="footer-link" href="">
+                        <a class="footer-link" href="https://lib.obs.ru-moscow-1.hc.sbercloud.ru:443/PATENTS/about.pdf">
                             О проекте
                         </a>
                     </li>
                     <li class="point">
-                        <a class="footer-link" href="https://lib.rudn.ru">
+                        <a class="footer-link" href="https://lib.rudn.ru/contacts">
                             Контакты
                         </a>
                     </li>
@@ -261,7 +450,7 @@
             </nav>
             
             <p style="font-size: .9rem;">
-                © 2025 РУДН им. Патриса Лумумбы | <a href="">Политика конфиденциальности</a> | <a href="">Условия использования</a>
+                © 2025 РУДН им. Патриса Лумумбы | <a href="https://lib.obs.ru-moscow-1.hc.sbercloud.ru:443/PATENTS/policy.pdf">Политика конфиденциальности</a>
             </p>
 
         </footer>

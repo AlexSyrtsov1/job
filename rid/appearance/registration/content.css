@@ -397,6 +397,11 @@ body{
     color: #ffffff;
 }
 
+li::marker{
+    color:#20015a;
+    font-size: 1.4rem;
+}
+
 .doc-link{
     color:#20015a;
     text-decoration: none;
