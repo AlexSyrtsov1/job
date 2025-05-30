@@ -55,25 +55,59 @@
                             </h1>
                             <img style="block-size: 8rem;" src="https://lib.obs.ru-moscow-1.hc.sbercloud.ru:443/PATENTS/best-icon-of-all-time-but-animated-with-sparcles-ahh-what-a-miracle.svg">
                         </div>
-                        <p id="categories-field" style="font-size: 1.3rem; margin: 1rem 0;">
-                            Другое
-                        </p>
-                        <h3 id="tech-name">
-                            <a href="" id="tech-name-link">
-                                {название представленного результата интеллектуальной деятельности со ссылкой на страницу описания}
-                            </a>
-                        </h3>
+                        <div id="upload" style="height: 20rem;">
+                            
+                        </div>
                         <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
                             <div style="display: flex; flex-direction: row; gap: 1rem">
-                                <button style="background-color: transparent; border: 0;" onclick="">
+                                <button id="move-left" style="background-color: transparent; border: 0;">
                                     <img style="block-size: 1.5rem; transform: rotate(90deg);" src="https://lib.obs.ru-moscow-1.hc.sbercloud.ru:443/PATENTS/expand.svg">
                                 </button>
-                                <button style="background-color: transparent; border: 0;" onclick="">
+                                <button id="move-right" style="background-color: transparent; border: 0;">
                                     <img style="block-size: 1.5rem; transform: rotate(-90deg); fill: #fff" src="https://lib.obs.ru-moscow-1.hc.sbercloud.ru:443/PATENTS/expand.svg">
                                 </button>
                             </div>
                             <a href="/portfolio" style="text-decoration: none; color: #ffffff; font-size: 1.07rem;">Все РИД РУДН ></a>
                         </div>
+
+                        <script>
+                            const results = document.getElementById('upload');
+
+                            async function load()
+                            {
+                                const response = await fetch('/best', {
+                                    method: 'GET'
+                                });
+                                const data = await response.text();
+                                results.innerHTML = data;
+                            }
+
+                            load().then(
+                                () => {
+                                    const cards = document.getElementById('upload');
+                                    const cardArr = cards.children;
+                                    const len = cardArr.length;
+                                    let a = (Number.MAX_SAFE_INTEGER-1)/2-(Number.MAX_SAFE_INTEGER-1)/2%len;
+                                    console.log(a%len)
+                                    cardArr[a%len].style.display = 'block';
+
+                                    document.querySelectorAll('.display-frames').forEach(function(frame) {
+                                        frame.innerHTML = frame.innerHTML.replace(/&nbsp;/g, ' ');
+                                    });
+
+                                    document.getElementById('move-left').addEventListener('click', ()=>{
+                                        cardArr[a%len].style.display = 'none';
+                                        cardArr[(--a)%len].style.display = 'block';
+                                    })
+                                    document.getElementById('move-right').addEventListener('click', ()=>{
+                                        cardArr[a%len].style.display = 'none';
+                                        cardArr[(++a)%len].style.display = 'block';
+                                    })
+                                }
+                            )
+
+                            
+                        </script>
                     </div>
                 </div>
             </div>
@@ -213,12 +247,12 @@
 
                 <ul style="list-style-type: none; padding: 0; margin: 0;">
                     <li class="point">
-                        <a class="footer-link" href="">
+                        <a class="footer-link" href="https://lib.obs.ru-moscow-1.hc.sbercloud.ru:443/PATENTS/about.pdf">
                             О проекте
                         </a>
                     </li>
                     <li class="point">
-                        <a class="footer-link" href="https://lib.rudn.ru">
+                        <a class="footer-link" href="https://lib.rudn.ru/contacts">
                             Контакты
                         </a>
                     </li>
@@ -291,7 +325,7 @@
             </nav>
             
             <p style="font-size: .9rem;">
-                © 2025 РУДН им. Патриса Лумумбы | <a href="">Политика конфиденциальности</a> | <a href="">Условия использования</a>
+                © 2025 РУДН им. Патриса Лумумбы | <a href="https://lib.obs.ru-moscow-1.hc.sbercloud.ru:443/PATENTS/policy.pdf">Политика конфиденциальности</a>
             </p>
 
         </footer>
