@@ -1,7 +1,9 @@
 use std::time;
+use std::env;
 
 use actix_web::{web, App, HttpServer, HttpResponse, Responder};
 use actix_governor::{Governor, GovernorConfigBuilder};
+use sqlx::mysql::MySqlPoolOptions;
 use actix_web::cookie::Key;
 use actix_session::SessionMiddleware;
 use actix_session::storage::SessionStore;
@@ -43,10 +45,22 @@ async fn main() -> std::io::Result<()>
         .finish()
         .unwrap();
 
+    dotenvy::dotenv().ok();
+
+    let pool = MySqlPoolOptions::new()
+        .max_connections(10)
+        .acquire_timeout(time::Duration::from_secs(10))
+        .connect(&(env::var("DATABASE_URL").expect("No env var found")))
+        .await
+        .expect("pool failed");
+
     HttpServer::new(move || App::new()
         .wrap(Governor::new(&governor_conf))
+        .app_data(web::Data::new(pool.clone()))
         .service(web::resource("/").route(web::get().to(handlers::main_page)))
         .service(web::resource("/find").route(web::post().to(handlers::find)))
+        .service(web::resource("/best").route(web::get().to(handlers::best)))
+        .service(web::resource("/counters").route(web::get().to(handlers::counters)))
         .service(web::resource("/{name}").route(web::get().to(handlers::index)))
         .service(web::resource("{name}/assets/content.css").route(web::get().to(handlers::styles)))
         .service(web::resource("/assets/{name}.js").route(web::get().to(handlers::scripts)))
@@ -57,7 +71,7 @@ async fn main() -> std::io::Result<()>
         .service(web::resource("/{name}/result").route(web::post().to(handlers::poster)))
         .default_service(web::route().to(handlers::not_found))
     )
-        .bind(("0.0.0.0", 8080))?
+        .bind(("0.0.0.0", 81))?
         .run()
         .await
 }

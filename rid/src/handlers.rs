@@ -1,5 +1,6 @@
 use std::time;
 use std::collections::HashMap;
+use std::env;
 
 use actix_web::web::Query;
 use actix_web::{web, App, HttpServer, HttpResponse, Responder};
@@ -7,9 +8,12 @@ use actix_governor::{Governor, GovernorConfigBuilder};
 use actix_web::cookie::Key;
 use actix_session::SessionMiddleware;
 use actix_session::storage::SessionStore;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 use serde_json::{Value, Error};
+use sqlx::mysql::MySqlPool;
+
+
 
 #[derive(Deserialize)]
 pub struct InputData
@@ -18,8 +22,49 @@ pub struct InputData
     email: String,
 }
 
+#[derive(Serialize, Debug, sqlx::FromRow)]
+struct Bestrid
+{
+    name: Option<String>,
+    sub_area: Option<String>
+}
 
-pub async fn index(name: web::Path<String>, search_request: web::Json<HashMap<String, serde_json::Value>>) -> impl Responder
+#[derive(Serialize, Debug, sqlx::FromRow, Clone)]
+struct SubjectAreaFilter
+{
+    sub_area: Option<String>,
+    sub_area_count: i64
+}
+
+#[derive(Serialize, Debug, sqlx::FromRow, Clone)]
+struct YearFilter
+{
+    year: Option<String>,
+    year_count: i64
+}
+
+#[derive(Serialize, Debug, sqlx::FromRow, Clone)]
+struct FacultyFilter
+{
+    faculty: Option<String>,
+    faculty_count: i64
+}
+
+#[derive(Serialize, Debug, sqlx::FromRow, Clone)]
+struct Rid
+{
+    name: String,
+    describtion: String,
+    number: i32,
+    faculty: String,
+    rid_type: String,
+    year: String,
+    sub_area: String,
+    link: String,
+    authors: Option<String>
+}
+
+pub async fn index(name: web::Path<String>/*, search_request: web::Json<HashMap<String, serde_json::Value>>*/) -> impl Responder
 {
     let file_path = format!("C:/Users/syrtsov_ayu/projects/site/server/appearence/{}/{}.html", &name, &name);
     let body = std::fs::read_to_string(file_path).unwrap();
@@ -27,6 +72,15 @@ pub async fn index(name: web::Path<String>, search_request: web::Json<HashMap<St
         .content_type("text/html; charset=utf-8")
         .body(body)
 }
+
+// pub async fn index_find(name: web::Path<String>/*, search_request: web::Json<HashMap<String, serde_json::Value>>*/) -> impl Responder
+// {
+//     let file_path = format!("C:/Users/syrtsov_ayu/projects/site/server/appearence/{}/{}.html", &name, &name);
+//     let body = std::fs::read_to_string(file_path).unwrap();
+//     HttpResponse::Ok()
+//         .content_type("text/html; charset=utf-8")
+//         .body(body)
+// }
 
 pub async fn main_page() -> impl Responder
 {
@@ -81,109 +135,407 @@ pub async fn fonts(file: web::Path<String>) -> impl Responder
     .body(body)
 }
 
-pub async fn find(search_request: web::Json<HashMap<String, serde_json::Value>>) -> impl Responder
+pub async fn best(pool: web::Data<MySqlPool>) -> impl Responder
 {
-    HttpResponse::Ok()
+    let rows = sqlx::query_as!(Bestrid, "select bestrid.name as name, SubjectArea.name as sub_area from bestrid left join SubjectArea on (bestrid.idSubjectArea = SubjectArea.id)")
+        .fetch_all(pool.get_ref())
+        .await
+        .unwrap();
+
+    let mut body: String = String::default();
+
+    for row in rows
+    {
+        body.push_str(&format!(
+            r#"
+            <div class="display-frames" style="display: none;">
+                <p id="categories-field" style="font-size: 1.3rem; margin: 1rem 0;">
+                    {1}
+                </p>
+                <h3 id="tech-name">
+                    <a href="" id="tech-name-link">
+                        {0}
+                    </a>
+                </h3>
+            </div>
+            "#, row.name.unwrap().to_string(), row.sub_area.unwrap().to_string()
+        ))
+    }
+
+     HttpResponse::Ok()
     .content_type("text/html, charset=utf-8")
-    .body(format!(r#"<div class="card-container">
-                    <div class="card-content">
-                        <h1 style="font-size: 1.1rem; margin: 0 0 .5rem 0;">
-                            index
-                        </h1>
-                        <h2 id="tech-name" style="font-size: 1.3rem; margin: 0 0 1rem 0;">
-                            <a class="tech-name-title" href="">
-                                {:?}
-                            </a>
-                        </h2>
-                        <p style="font-size: 1.1rem; margin: 0 0 .3rem 0;">
-                            автор 1/автор 2/.../автор 3
-                        </p>
-                        <p style="font-size: .9rem; margin: 0 0 1rem 0; color: #5f5f5f;">
-                            2024
-                        </p>
-                        <div class="category-tags">
-                            <a href="" class="category-tag">Аграрно-технологический институт</a>
-                            <a href="" class="category-tag">Агрокомплекс</a>
+    .body(body)
+}
+
+pub async fn counters(pool: web::Data<MySqlPool>) -> impl Responder
+{
+    let sub_area_count_map = sqlx::query_as!(SubjectAreaFilter, r#"
+        select
+            subjectarea.name as sub_area,
+            COUNT(subjectarea.name) AS sub_area_count
+        from rid
+
+        left join SubjectArea on (RID.idSubjectArea = SubjectArea.id)
+        GROUP BY
+            subjectarea.name
+        ORDER by
+         	sub_area_count desc
+        "#)
+        .fetch_all(pool.get_ref())
+        .await
+        .unwrap();
+
+    let year_count_map = sqlx::query_as!(YearFilter, r#"
+        select
+            cast(year.year as char) as year,
+            COUNT(year.year) AS year_count
+        from rid
+
+        left join Year on (RID.idYear = Year.id)
+        GROUP BY
+            year.year
+        order by
+            year_count desc
+        "#)
+        .fetch_all(pool.get_ref())
+        .await
+        .unwrap();
+
+    let faculty_count_map = sqlx::query_as!(FacultyFilter, r#"
+        select
+            Faculty.name as faculty,
+            COUNT(Faculty.name) AS faculty_count
+        from rid
+
+        left join Faculty on (RID.idFaculty = Faculty.id)
+        GROUP BY
+            Faculty.name
+        order by
+            faculty_count desc
+        "#)
+        .fetch_all(pool.get_ref())
+        .await
+        .unwrap();
+
+    let mut body: String = String::from(r#"
+        <div class="category-type">
+            <button type="button" class="category-header" onclick="hideCategoryList('category-1')">
+                Предметная область<img style="block-size: 1rem; transform: rotate(0);" id="category-1" src="https://lib.obs.ru-moscow-1.hc.sbercloud.ru:443/PATENTS/expand.svg">
+            </button>
+
+            <div id="category-list-1" class="category-list">
+    "#);
+
+    for (i, item) in sub_area_count_map.iter().enumerate()
+    {
+        body.push_str(&format!(
+            r#"
+                <div class="category">
+                        <div>
+                            <input type="checkbox" id="sub-{0}" name="check" onclick="addQuery('s','{1}')"/>
+                            <label for="sub-{0}">{1}</label>
                         </div>
-                    </div>
-                </div>"#, search_request.into_inner())) // q.into_inner()["y"].as_array().unwrap()[0].to_string()
+                    <div class="category-count">{2}</div>
+                </div>
+            "#,
+            i,
+            item.clone().sub_area.unwrap().to_string(),
+            item.sub_area_count
+        ));
+    }
+
+    body.push_str(r#"
+            </div>
+        </div>
+
+        <div class="category-type">
+            <button type="button" class="category-header" onclick="hideCategoryList('category-2')">
+                Год<img style="block-size: 1rem; transform: rotate(180deg);" id="category-2" src="https://lib.obs.ru-moscow-1.hc.sbercloud.ru:443/PATENTS/expand.svg">
+            </button>
+
+            <div id="category-list-2" class="category-list" style="display:none;">
+    "#);
+
+    for (i, item) in year_count_map.iter().enumerate()
+    {
+        body.push_str(&format!(
+            r#"
+                <div class="category">
+                        <div>
+                            <input type="checkbox" id="year-{0}" name="check" onclick="addQuery('y','{1}')"/>
+                            <label for="year-{0}">{1}</label>
+                        </div>
+                    <div class="category-count">{2}</div>
+                </div>
+            "#,
+            i,
+            item.clone().year.unwrap().to_string(),
+            item.year_count
+        ));
+    }
+
+    body.push_str(r#"
+            </div>
+        </div>
+
+        <div class="category-type" style="margin-bottom: 10rem;">
+            <button type="button" class="category-header" aria-expanded="true" onclick="hideCategoryList('category-3')">
+                Факультеты<img style="block-size: 1rem; transform: rotate(180deg);" id="category-3" src="https://lib.obs.ru-moscow-1.hc.sbercloud.ru:443/PATENTS/expand.svg">
+            </button>
+
+            <div id="category-list-3" class="category-list" style="display: none;">
+    "#);
+
+    for (i, item) in faculty_count_map.iter().enumerate()
+    {
+        body.push_str(&format!(
+            r#"
+                <div class="category">
+                        <div>
+                            <input type="checkbox" id="dep-{0}" name="check" onclick="addQuery('d','{1}')"/>
+                            <label for="dep-{0}">{1}</label>
+                        </div>
+                    <div class="category-count">{2}</div>
+                </div>
+            "#,
+            i,
+            item.clone().faculty.unwrap().to_string(),
+            item.faculty_count
+        ));
+    }
+
+    body.push_str(r#"
+            </div>
+        </div>
+    "#);
+    
+    HttpResponse::Ok()
+        .content_type("text/html, charset=utf-8")
+        .body(body)
+}
+
+pub async fn find(search_request: web::Json<HashMap<String, serde_json::Value>>, pool: web::Data<MySqlPool>) -> impl Responder
+{
+    let mut basepart: String = String::from(r#"
+        select
+            rid.name as name,
+            rid.description as describtion,
+            rid.numPotent as number,
+            Faculty.name as faculty,
+            Type.name as rid_type,
+            cast(Year.year as char) as year,
+            SubjectArea.name as sub_area,
+            rid.link as link,
+            group_concat(fio.surname, ' ', fio.name, '.', fio.lastname, '.', ' (', authorcountry.name, ')' SEPARATOR ', ') as authors
+        from rid
+
+        left join Faculty on (RID.idFaculty = Faculty.id)
+        left join Type on (RID.idType = Type.id)
+        left join Year on (RID.idYear = Year.id)
+        left join SubjectArea on (RID.idSubjectArea = SubjectArea.id)
+        left join AUTHORxRID on (RID.id = AUTHORxRID.idRID)
+        left join fio on (AUTHORxRID.idAuthor = FIO.id)
+        left join ConnectionAuthorCountry on (FIO.id = ConnectionAuthorCountry.idFIO)
+        left join AuthorCountry on (ConnectionAuthorCountry.idCountry = AuthorCountry.id)
+    "#);
+
+    let mut strpart: String = String::default();
+    let mut ypart: String = String::default();
+    let mut spart: String = String::default();
+    let mut dpart: String = String::default();
+
+    for (key, val) in search_request.into_inner()
+    {
+        match key.as_str() {
+            "str" => 
+            {
+                strpart.push_str(&format!(" (lower(RID.name) like lower('%{0}%')) or (lower(RID.description) like lower('%{0}%'))", val.as_str().unwrap().to_string()));
+                
+            },
+
+            "y" =>
+            {
+                ypart.push_str(&format!(" Year.year = {}", val.as_array().unwrap()[0].to_string()));
+
+                if val.as_array().unwrap().len() == 1
+                {
+                    continue;
+                }
+
+                for year in &val.as_array().unwrap()[1..]
+                {
+                    ypart.push_str(&format!(" or Year.year = {}", year.to_string()));
+                }
+            },
+
+            "s" =>
+            {
+                spart.push_str(&format!(" SubjectArea.name = {}", val.as_array().unwrap()[0].to_string()));
+
+                if val.as_array().unwrap().len() == 1
+                {
+                    continue;
+                }
+
+                for sub_area in &val.as_array().unwrap()[1..]
+                {
+                    spart.push_str(&format!(" or SubjectArea.name = {}", sub_area.to_string()));
+                }
+            },
+
+            "d" =>
+            {
+                dpart.push_str(&format!(" Faculty.name = {}", val.as_array().unwrap()[0].to_string()));
+
+                if val.as_array().unwrap().len() == 1
+                {
+                    continue;
+                }
+
+                for faculty in &val.as_array().unwrap()[1..]
+                {
+                    dpart.push_str(&format!(" or Faculty.name = {}", faculty.to_string()));
+                }
+            },
+
+            _ => continue
+        }
+    }
+
+    let mut is_first: bool = true;
+
+    if !dpart.trim().is_empty()
+    {
+        is_first = if is_first {false} else {
+            strpart.push_str(" and");
+            false
+        };
+        strpart.push_str(&dpart);
+    }
+
+    if !ypart.trim().is_empty()
+    {
+        is_first = if is_first {false} else {
+            strpart.push_str(" and");
+            false
+        };
+        strpart.push_str(&ypart);
+    }
+
+    if !spart.trim().is_empty()
+    {
+        is_first = if is_first {false} else {
+            strpart.push_str(" and");
+            false
+        };
+        strpart.push_str(&spart);
+    }
+
+    if !strpart.trim().is_empty()
+    {
+        basepart.push_str(" where");
+        basepart.push_str(&strpart);
+    }
+
+    basepart.push_str(" GROUP BY rid.name, year");
+
+    let rows:Result<Vec<Rid>, sqlx::Error>  = sqlx::query_as(&basepart)
+        .fetch_all(pool.get_ref())
+        .await;
+
+    match rows
+    {
+        Ok(rows) => {
+            if rows.is_empty()
+            {
+                return HttpResponse::Ok()
+                    .content_type("text/html, charset=utf-8")
+                    .body("<h2> По запросу нет подходящих результатов </h2>");
+            }
+
+            let mut body: String = String::default();
+
+            for (i, row) in rows.iter().enumerate()
+            {
+                body.push_str(&format!(
+                    r#"
+                        <div class="card-container">
+                            <div class="card-content">
+                                <h1 style="font-size: 1.1rem; margin: 0 0 .5rem 0;">
+                                    {3}
+                                </h1>
+                                <h2 id="tech-name" style="font-size: 1.3rem; margin: 0 0 1rem 0;">
+                                    <a class="tech-name-title" href="{8}">
+                                        {1}
+                                    </a>
+                                </h2>
+                                <p style="font-size: 1.1rem; margin: 0 0 .3rem 0;">
+                                    {9}
+                                </p>
+                                <p style="font-size: .9rem; margin: 0 0 1rem 0; color: #5f5f5f;">
+                                    {6}
+                                </p>
+                                <div class="category-tags">
+                                    <a href="" class="category-tag">{5}</a>
+                                    <a href="" class="category-tag">{7}</a>
+                                    <a href="" class="category-tag">{4}</a>
+                                </div>
+                                
+                                <button type="button" class="description-toggle" aria-expanded="true" onclick="showDescribtion('patent-{0}')" style="margin-top: 1rem;">
+                                    Описание<img style="block-size: 1rem; transform: rotate(180deg);" id="patent-{0}" src="https://lib.obs.ru-moscow-1.hc.sbercloud.ru:443/PATENTS/expand.svg">
+                                </button>
+
+                                <p id="patent-{0}-desc" class="category-list" style="display: none;">
+                                    {2}
+                                </p>
+                            </div>
+                        </div>
+                    "#,
+                    i,
+                    row.name, // 1
+                    row.describtion, // 2
+                    row.number, // 3
+                    row.faculty, // 4
+                    row.rid_type, // 5
+                    row.year, // 6
+                    row.sub_area, // 7
+                    row.link, // 8
+                    row.clone().authors.unwrap_or("Авторы не указаны".to_string()).to_string() // 9
+                ));
+            }
+
+            return HttpResponse::Ok()
+                .content_type("text/html, charset=utf-8")
+                .body(body);
+        },
+        Err(error) => {
+            return HttpResponse::ServiceUnavailable()
+                .content_type("text/html, charset=utf-8")
+                .body(error.to_string());
+        }
+    }
+
+
+     // q.into_inner()["y"].as_array().unwrap()[0].to_string()
 }
 
 pub async fn update(name: web::Path<String>) -> impl Responder
 {
     HttpResponse::Ok()
         .content_type("text/html; charset=utf-8")
-        .body(r#"
+        .body(format!(r#"
         <!DOCTYPE html>
         <html>
         <head>
             <title>Actix Web Example</title>
-            <script>
-                pub async function updateElement() {
-                    const response = await fetch('/main/update');
-                    const data = await response.text();
-                    document.getElementById('myElement').innerText = data;
-                }
-            </script>
+            
         </head>
         <body>
-            <h1 id="myElement">Original Text</h1>
-            <button onclick="updateElement()">Update Text</button>
-
-            <h1>AJAX POST Request Example</h1>
-            <form id="dataForm">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
-                <br>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <br>
-                <button type="submit">Submit</button>
-            </form>
-            <div id="response"></div>
-
-            <script>
-                document.getElementById('dataForm').addEventListener('submit', function(event) {
-                    event.preventDefault(); // Prevent the form from submitting the traditional way
-
-                    const name = document.getElementById('name').value;
-                    const email = document.getElementById('email').value;
-
-                    // Create a data object to send
-                    const data = {
-                        name: name,
-                        email: email
-                    };
-
-                    // Make the AJAX POST request
-                    fetch('http://127.0.0.1:8081/main/result', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok ' + response.statusText);
-                    }
-                    // Wait for the response text to resolve
-                    return response.text(); // Return the Promise from response.text()
-                })
-                .then(text => {
-                    // Now we can safely set the inner text
-                    document.getElementById('response').innerHTML = text;
-                })
-                .catch(error => {
-                    console.error('There was a problem with the fetch operation:', error);
-                    document.getElementById('response').innerText = 'Error: ' + error.message;
-                });
-
-                });
-            </script>
+            <h1 id="myElement">{}</h1>
+            
         </body>
         </html>
-    "#)
+    "#, env::current_dir().unwrap().into_os_string().into_string().unwrap()))
 }
 
 pub async fn poster(name: web::Path<String>, params: web::Json<InputData>) -> impl Responder
