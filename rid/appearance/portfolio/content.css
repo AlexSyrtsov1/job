@@ -229,6 +229,25 @@ body{
     color:#38dce7;
 }
 
+.description-toggle{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: left;
+    background-color: #ffffff;
+    border: 0px;
+    cursor: pointer;
+    padding-bottom: .4rem;
+    gap: 1rem;
+}
+
+.description-toggle:hover{
+    color:#38dce7;
+}
+
 .category-list{
     max-height: 15rem;
     overflow: auto;

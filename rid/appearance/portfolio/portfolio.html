@@ -96,285 +96,287 @@
                 </div>
                 
 
-                <div class="category-type">
-                    <button type="button" class="category-header" onclick="hideCategoryList('category-1')">
-                        Предметная область<img style="block-size: 1rem; transform: rotate(0);" id="category-1" src="https://lib.obs.ru-moscow-1.hc.sbercloud.ru:443/PATENTS/expand.svg">
-                    </button>
+                <div id="categories-upload">
+                    <div class="category-type">
+                            <button type="button" class="category-header" onclick="hideCategoryList('category-1')">
+                                Предметная область<img style="block-size: 1rem; transform: rotate(0);" id="category-1" src="https://lib.obs.ru-moscow-1.hc.sbercloud.ru:443/PATENTS/expand.svg">
+                            </button>
 
-                    <div id="category-list-1" class="category-list">
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="hum" name="check" onclick="addQuery('s','hum')"/>
-                                <label for="hum">Гуманитарные науки</label>
+                            <div id="category-list-1" class="category-list">
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="hum" name="check" onclick="addQuery('s','Гуманитарные науки')"/>
+                                    <label for="hum">Гуманитарные науки</label>
+                                </div>
+                                <div class="category-count" id="cc-hum">0</div>
                             </div>
-                            <div class="category-count" id="cc-hum">0</div>
-                        </div>
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="eng" name="check" onclick="addQuery('s','eng')"/>
-                                <label for="eng">Инженерные науки</label>
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="eng" name="check" onclick="addQuery('s','Инженерные науки')"/>
+                                    <label for="eng">Инженерные науки</label>
+                                </div>
+                                <div class="category-count" id="cc-eng">0</div>
                             </div>
-                            <div class="category-count" id="cc-eng">0</div>
-                        </div>
-                        
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="sci" name="check" onclick="addQuery('s','sci')"/>
-                                <label for="sci">Математические и естественные науки</label>
+                            
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="sci" name="check" onclick="addQuery('s','Математические и естественные науки')"/>
+                                    <label for="sci">Математические и естественные науки</label>
+                                </div>
+                                <div class="category-count" id="cc-sci">0</div>
                             </div>
-                            <div class="category-count" id="cc-sci">0</div>
-                        </div>
-                        
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="med" name="check" onclick="addQuery('s','med')"/>
-                                <label for="med">Медицинские науки</label>
+                            
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="med" name="check" onclick="addQuery('s','Медицинские науки')"/>
+                                    <label for="med">Медицинские науки</label>
+                                </div>
+                                <div class="category-count" id="cc-med">0</div>
                             </div>
-                            <div class="category-count" id="cc-med">0</div>
-                        </div>
-                        
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="soc" name="check" onclick="addQuery('s','soc')"/>
-                                <label for="soc">Науки об обществе</label>
+                            
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="soc" name="check" onclick="addQuery('s','Науки об обществе')"/>
+                                    <label for="soc">Науки об обществе</label>
+                                </div>
+                                <div class="category-count" id="cc-soc">0</div>
                             </div>
-                            <div class="category-count" id="cc-soc">0</div>
-                        </div>
 
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="agr" name="check" onclick="addQuery('s','agr')"/>
-                                <label for="agr">Сельское хозяйство</label>
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="agr" name="check" onclick="addQuery('s','Сельское хозяйство')"/>
+                                    <label for="agr">Сельское хозяйство</label>
+                                </div>
+                                <div class="category-count" id="cc-agr">0</div>
                             </div>
-                            <div class="category-count" id="cc-agr">0</div>
-                        </div>
 
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="eco" name="check" onclick="addQuery('s','eco')"/>
-                                <label for="eco">Экология</label>
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="eco" name="check" onclick="addQuery('s','Экология')"/>
+                                    <label for="eco">Экология</label>
+                                </div>
+                                <div class="category-count" id="cc-eco">0</div>
                             </div>
-                            <div class="category-count" id="cc-eco">0</div>
-                        </div>
 
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="oth" name="check" onclick="addQuery('s','oth')"/>
-                                <label for="oth">Другое</label>
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="oth" name="check" onclick="addQuery('s','Другое')"/>
+                                    <label for="oth">Другое</label>
+                                </div>
+                                <div class="category-count" id="cc-oth">0</div>
                             </div>
-                            <div class="category-count" id="cc-oth">0</div>
-                        </div>
-                        
-                    </div>
-                </div>
-
-            
-
-
-                <div class="category-type">
-                    <button type="button" class="category-header" onclick="hideCategoryList('category-2')">
-                        Год<img style="block-size: 1rem; transform: rotate(180deg);" id="category-2" src="https://lib.obs.ru-moscow-1.hc.sbercloud.ru:443/PATENTS/expand.svg">
-                    </button>
-
-                    <div id="category-list-2" class="category-list" style="display:none;">
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="2024" name="check" onclick="addQuery('y','2024')"/>
-                                <label for="2024">2024</label>
-                            </div>
-                            <div class="category-count" id="cc-2024">0</div>
-                        </div>
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="2023" name="check" onclick="addQuery('y','2023')"/>
-                                <label for="2023">2023</label>
-                            </div>
-                            <div class="category-count" id="cc-2023">0</div>
-                        </div>
-                        
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="2022" name="check" onclick="addQuery('y','2022')"/>
-                                <label for="2022">2022</label>
-                            </div>
-                            <div class="category-count" id="cc-2022">0</div>
-                        </div>
-                        
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="2021" name="check" onclick="addQuery('y','2021')"/>
-                                <label for="2021">2021</label>
-                            </div>
-                            <div class="category-count" id="cc-2021">0</div>
-                        </div>
-                        
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="2020" name="check" onclick="addQuery('y','2020')"/>
-                                <label for="2020">2020</label>
-                            </div>
-                            <div class="category-count" id="cc-2020">0</div>
-                        </div>
-                        
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="2019" name="check" onclick="addQuery('y','2019')"/>
-                                <label for="2019">2019</label>
-                            </div>
-                            <div class="category-count" id="cc-2019">0</div>
-                        </div>
-                        
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="2018" name="check" onclick="addQuery('y','2018')"/>
-                                <label for="2018">2018</label>
-                            </div>
-                            <div class="category-count" id="cc-2018">0</div>
-                        </div>
-                        
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="2017" name="check" onclick="addQuery('y','2017')"/>
-                                <label for="2017">2017</label>
-                            </div>
-                            <div class="category-count" id="cc-2017">0</div>
-                        </div>
-                        
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="2016" name="check" onclick="addQuery('y','2016')"/>
-                                <label for="2016">2016</label>
-                            </div>
-                            <div class="category-count" id="cc-2016">0</div>
-                        </div>
-                        
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="2015" name="check" onclick="addQuery('y','2015')"/>
-                                <label for="2015">2015</label>
-                            </div>
-                            <div class="category-count" id="cc-2015">0</div>
+                            
                         </div>
                     </div>
-                </div>
 
-                <div class="category-type" style="margin-bottom: 10rem;">
-                    <button type="button" class="category-header" aria-expanded="true" onclick="hideCategoryList('category-3')">
-                        Факультеты<img style="block-size: 1rem; transform: rotate(180deg);" id="category-3" src="https://lib.obs.ru-moscow-1.hc.sbercloud.ru:443/PATENTS/expand.svg">
-                    </button>
+                
 
-                    <div id="category-list-3" class="category-list" style="display: none;">
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="ati" name="check" onclick="addQuery('d','ati')"/>
-                                <label for="ati">Аграрно-технологический институт</label>
+
+                    <div class="category-type">
+                        <button type="button" class="category-header" onclick="hideCategoryList('category-2')">
+                            Год<img style="block-size: 1rem; transform: rotate(180deg);" id="category-2" src="https://lib.obs.ru-moscow-1.hc.sbercloud.ru:443/PATENTS/expand.svg">
+                        </button>
+
+                        <div id="category-list-2" class="category-list" style="display:none;">
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="2024" name="check" onclick="addQuery('y','2024')"/>
+                                    <label for="2024">2024</label>
+                                </div>
+                                <div class="category-count" id="cc-2024">0</div>
                             </div>
-                            <div class="category-count" id="cc-ati">0</div>
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="2023" name="check" onclick="addQuery('y','2023')"/>
+                                    <label for="2023">2023</label>
+                                </div>
+                                <div class="category-count" id="cc-2023">0</div>
+                            </div>
+                            
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="2022" name="check" onclick="addQuery('y','2022')"/>
+                                    <label for="2022">2022</label>
+                                </div>
+                                <div class="category-count" id="cc-2022">0</div>
+                            </div>
+                            
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="2021" name="check" onclick="addQuery('y','2021')"/>
+                                    <label for="2021">2021</label>
+                                </div>
+                                <div class="category-count" id="cc-2021">0</div>
+                            </div>
+                            
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="2020" name="check" onclick="addQuery('y','2020')"/>
+                                    <label for="2020">2020</label>
+                                </div>
+                                <div class="category-count" id="cc-2020">0</div>
+                            </div>
+                            
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="2019" name="check" onclick="addQuery('y','2019')"/>
+                                    <label for="2019">2019</label>
+                                </div>
+                                <div class="category-count" id="cc-2019">0</div>
+                            </div>
+                            
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="2018" name="check" onclick="addQuery('y','2018')"/>
+                                    <label for="2018">2018</label>
+                                </div>
+                                <div class="category-count" id="cc-2018">0</div>
+                            </div>
+                            
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="2017" name="check" onclick="addQuery('y','2017')"/>
+                                    <label for="2017">2017</label>
+                                </div>
+                                <div class="category-count" id="cc-2017">0</div>
+                            </div>
+                            
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="2016" name="check" onclick="addQuery('y','2016')"/>
+                                    <label for="2016">2016</label>
+                                </div>
+                                <div class="category-count" id="cc-2016">0</div>
+                            </div>
+                            
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="2015" name="check" onclick="addQuery('y','2015')"/>
+                                    <label for="2015">2015</label>
+                                </div>
+                                <div class="category-count" id="cc-2015">0</div>
+                            </div>
                         </div>
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="vhu" name="check" onclick="addQuery('d','vhu')"/>
-                                <label for="vhu">Высшая школа управления</label>
+                    </div>
+
+                    <div class="category-type" style="margin-bottom: 10rem;">
+                        <button type="button" class="category-header" aria-expanded="true" onclick="hideCategoryList('category-3')">
+                            Факультеты<img style="block-size: 1rem; transform: rotate(180deg);" id="category-3" src="https://lib.obs.ru-moscow-1.hc.sbercloud.ru:443/PATENTS/expand.svg">
+                        </button>
+
+                        <div id="category-list-3" class="category-list" style="display: none;">
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="ati" name="check" onclick="addQuery('d','Аграрно-технологический институт')"/>
+                                    <label for="ati">Аграрно-технологический институт</label>
+                                </div>
+                                <div class="category-count" id="cc-ati">0</div>
                             </div>
-                            <div class="category-count" id="cc-vhu">0</div>
-                        </div>
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="ena" name="check" onclick="addQuery('d','ena')"/>
-                                <label for="ena">Инженерная академия</label>
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="vhu" name="check" onclick="addQuery('d','Высшая школа управления')"/>
+                                    <label for="vhu">Высшая школа управления</label>
+                                </div>
+                                <div class="category-count" id="cc-vhu">0</div>
                             </div>
-                            <div class="category-count" id="cc-ena">0</div>
-                        </div>
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="ibt" name="check" onclick="addQuery('d','ibt')"/>
-                                <label for="ibt">Институт биохимической технологии и нанотехнологии</label>
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="ena" name="check" onclick="addQuery('d','Инженерная академия')"/>
+                                    <label for="ena">Инженерная академия</label>
+                                </div>
+                                <div class="category-count" id="cc-ena">0</div>
                             </div>
-                            <div class="category-count" id="cc-ibt">0</div>
-                        </div>
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="ivb" name="check" onclick="addQuery('d','ivb')"/>
-                                <label for="ivb">Институт внешнеэкономической безопасности и таможенного дела</label>
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="ibt" name="check" onclick="addQuery('d','Институт биохимической технологии и нанотехнологии')"/>
+                                    <label for="ibt">Институт биохимической технологии и нанотехнологии</label>
+                                </div>
+                                <div class="category-count" id="cc-ibt">0</div>
                             </div>
-                            <div class="category-count" id="cc-ivb">0</div>
-                        </div>
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="iiy" name="check" onclick="addQuery('d','iiy')"/>
-                                <label for="iiy">Институт иностранных языков</label>
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="ivb" name="check" onclick="addQuery('d','Институт внешнеэкономической безопасности и таможенного дела')"/>
+                                    <label for="ivb">Институт внешнеэкономической безопасности и таможенного дела</label>
+                                </div>
+                                <div class="category-count" id="cc-ivb">0</div>
                             </div>
-                            <div class="category-count" id="cc-iiy">0</div>
-                        </div>
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="ime" name="check" onclick="addQuery('d','ime')"/>
-                                <label for="ime">Институт мировой экономики и бизнеса</label>
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="iiy" name="check" onclick="addQuery('d','Институт иностранных языков')"/>
+                                    <label for="iiy">Институт иностранных языков</label>
+                                </div>
+                                <div class="category-count" id="cc-iiy">0</div>
                             </div>
-                            <div class="category-count" id="cc-ime">0</div>
-                        </div>
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="iry" name="check" onclick="addQuery('d','iry')"/>
-                                <label for="iry">Институт русского языка</label>
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="ime" name="check" onclick="addQuery('d','Институт мировой экономики и бизнеса')"/>
+                                    <label for="ime">Институт мировой экономики и бизнеса</label>
+                                </div>
+                                <div class="category-count" id="cc-ime">0</div>
                             </div>
-                            <div class="category-count" id="cc-iry">0</div>
-                        </div>
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="iec" name="check" onclick="addQuery('d','iec')"/>
-                                <label for="iec">Институт экологии</label>
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="iry" name="check" onclick="addQuery('d','Институт русского языка')"/>
+                                    <label for="iry">Институт русского языка</label>
+                                </div>
+                                <div class="category-count" id="cc-iry">0</div>
                             </div>
-                            <div class="category-count" id="cc-iec">0</div>
-                        </div>
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="mei" name="check" onclick="addQuery('d','mei')"/>
-                                <label for="mei">Медицинский институт</label>
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="iec" name="check" onclick="addQuery('d','Институт экологии')"/>
+                                    <label for="iec">Институт экологии</label>
+                                </div>
+                                <div class="category-count" id="cc-iec">0</div>
                             </div>
-                            <div class="category-count" id="cc-mei">0</div>
-                        </div>
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="fgs" name="check" onclick="addQuery('d','fgs')"/>
-                                <label for="fgs">Факультет гуманитарных и социальных наук</label>
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="mei" name="check" onclick="addQuery('d','Медицинский институт')"/>
+                                    <label for="mei">Медицинский институт</label>
+                                </div>
+                                <div class="category-count" id="cc-mei">0</div>
                             </div>
-                            <div class="category-count" id="cc-fgs">0</div>
-                        </div>
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="fee" name="check" onclick="addQuery('d','fee')"/>
-                                <label for="fee">Факультет искусственного интеллекта</label>
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="fgs" name="check" onclick="addQuery('d','Факультет гуманитарных и социальных наук')"/>
+                                    <label for="fgs">Факультет гуманитарных и социальных наук</label>
+                                </div>
+                                <div class="category-count" id="cc-fgs">0</div>
                             </div>
-                            <div class="category-count" id="cc-fee">0</div>
-                        </div>
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="ffm" name="check" onclick="addQuery('d','ffm')"/>
-                                <label for="ffm">Факультет физико-математических и естественных наук</label>
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="fee" name="check" onclick="addQuery('d','Факультет искусственного интеллекта')"/>
+                                    <label for="fee">Факультет искусственного интеллекта</label>
+                                </div>
+                                <div class="category-count" id="cc-fee">0</div>
                             </div>
-                            <div class="category-count" id="cc-ffm">0</div>
-                        </div>
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="fif" name="check" onclick="addQuery('d','fif')"/>
-                                <label for="fif">Филологический факультет</label>
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="ffm" name="check" onclick="addQuery('d','Факультет физико-математических и естественных наук')"/>
+                                    <label for="ffm">Факультет физико-математических и естественных наук</label>
+                                </div>
+                                <div class="category-count" id="cc-ffm">0</div>
                             </div>
-                            <div class="category-count" id="cc-fif">0</div>
-                        </div>
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="ecf" name="check" onclick="addQuery('d','ecf')"/>
-                                <label for="ecf">Экономический факультет</label>
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="fif" name="check" onclick="addQuery('d','Филологический факультет')"/>
+                                    <label for="fif">Филологический факультет</label>
+                                </div>
+                                <div class="category-count" id="cc-fif">0</div>
                             </div>
-                            <div class="category-count" id="cc-ecf">0</div>
-                        </div>
-                        <div class="category">
-                            <div>
-                                <input type="checkbox" id="yui" name="check" onclick="addQuery('d','yui')"/>
-                                <label for="yui">Юридический институт</label>
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="ecf" name="check" onclick="addQuery('d','Экономический факультет')"/>
+                                    <label for="ecf">Экономический факультет</label>
+                                </div>
+                                <div class="category-count" id="cc-ecf">0</div>
                             </div>
-                            <div class="category-count" id="cc-yui">0</div>
+                            <div class="category">
+                                <div>
+                                    <input type="checkbox" id="yui" name="check" onclick="addQuery('d','Юридический институт')"/>
+                                    <label for="yui">Юридический институт</label>
+                                </div>
+                                <div class="category-count" id="cc-yui">0</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -390,7 +392,6 @@
                 <script>
                     var q = {};
                     const allCategories = document.getElementsByName("check");
-                    console.log(allCategories);
 
                     function clearFilters()
                     {
@@ -404,6 +405,22 @@
                     {
                         document.getElementById('side-panel').style.display = 'block';
                         document.getElementById('secondary-content-container').style.display = 'none';
+                    }
+
+                    function showDescribtion(id)
+                    {
+                        const list = document.getElementById(id+"-desc");
+                
+                        if(list.style.display === "none")
+                        {
+                            document.getElementById(id).style.transform = 'rotate(0)';
+                            list.style.display = "block";
+                        }
+                        else
+                        {
+                            document.getElementById(id).style.transform = 'rotate(180deg)';
+                            list.style.display = "none";
+                        }
                     }
                 </script>
 
@@ -456,10 +473,20 @@
                             <p style="font-size: .9rem; margin: 0 0 1rem 0; color: #5f5f5f;">
                                 2024
                             </p>
+                            
                             <div class="category-tags">
                                 <a href="" class="category-tag">Аграрно-технологический институт</a>
                                 <a href="" class="category-tag">Агрокомплекс</a>
                             </div>
+                            <button type="button" class="description-toggle" aria-expanded="true" onclick="showDescribtion('patent-1')" style="margin-top: 1rem;">
+                                Факультеты<img style="block-size: 1rem; transform: rotate(180deg);" id="patent-1" src="https://lib.obs.ru-moscow-1.hc.sbercloud.ru:443/PATENTS/expand.svg">
+                            </button>
+
+                            <p id="patent-1-desc" class="category-list" style="display: none;">
+                                rtioytr[\ppiouilyukyts]
+                                dfghjlkjhg
+                                gyfkjhhfglf ggggggggggggggg ggggggggggggggggggggggg ggggggggggggggggggg ggggggggggggggggggg gggggggggggggggggggggg ggggggggggggggggggggggg
+                            </p>
                         </div>
                     </div>
     
@@ -602,6 +629,7 @@
                                 delete q[key];
                                 return;
                             }
+                            return;
                         }
 
                         q[key].push(val);
@@ -613,12 +641,14 @@
 
                     async function search()
                     {
-                        if(!input.value)
+                        if(input.value)
                         {
-                            return;
+                            q['str'] = input.value;
                         }
-                        
-                        q['str'] = input.value;
+                        else
+                        {
+                            delete q['str'];
+                        }
                         const response = await fetch('/find', {
                             method: 'POST',
                             headers: {
@@ -629,6 +659,22 @@
                         const data = await response.text();
                         results.innerHTML = data;
                     }
+
+                    search()
+
+
+                    const categoriesUpload = document.getElementById('categories-upload');
+
+                    async function counters()
+                    {
+                        const response = await fetch('/counters', {
+                            method: 'GET'
+                        });
+                        const data = await response.text();
+                        categoriesUpload.innerHTML = data;
+                    }
+
+                    counters()
                 </script>
                 
                 <div style="display:flex; flex-direction: row; justify-content: center;">
@@ -648,12 +694,12 @@
         
                         <ul style="list-style-type: none; padding: 0; margin: 0;">
                             <li class="point">
-                                <a class="footer-link" href="">
+                                <a class="footer-link" href="https://lib.obs.ru-moscow-1.hc.sbercloud.ru:443/PATENTS/about.pdf">
                                     О проекте
                                 </a>
                             </li>
                             <li class="point">
-                                <a class="footer-link" href="https://lib.rudn.ru">
+                                <a class="footer-link" href="https://lib.rudn.ru/contacts">
                                     Контакты
                                 </a>
                             </li>
@@ -726,7 +772,7 @@
                     </nav>
                     
                     <p style="font-size: .9rem;">
-                        © 2025 РУДН им. Патриса Лумумбы | <a href="">Политика конфиденциальности</a> | <a href="">Условия использования</a>
+                        © 2025 РУДН им. Патриса Лумумбы | <a href="https://lib.obs.ru-moscow-1.hc.sbercloud.ru:443/PATENTS/policy.pdf">Политика конфиденциальности</a>
                     </p>
         
                 </footer>
